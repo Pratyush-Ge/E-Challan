@@ -8,5 +8,9 @@
   background-position: center;
 }
 
+html{
+  overflow-x: hidden;
+}
+
   
   

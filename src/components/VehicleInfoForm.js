@@ -1,25 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const VehicleInfoForm = () => {
+  const { aadharNumber } = useParams(); 
   const [vehicleNumber, setVehicleNumber] = useState('');
   const [vehicleType, setVehicleType] = useState('');
-  const [aadharNumber, setAadharNumber] = useState('');
   const navigate = useNavigate();
-
-  useEffect(() => {
-    const fetchAadharNumber = async () => {
-      try {
-        const response = await axios.get('http://localhost:5000/getAadhar');
-        setAadharNumber(response.data.aadharNumber);
-      } catch (error) {
-        console.error('Error fetching Aadhar number:', error);
-      }
-    };
-
-    fetchAadharNumber();
-  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -29,8 +17,8 @@ const VehicleInfoForm = () => {
         vehicleNumber,
         vehicleType,
       });
-      alert('Vehicle details added successfully');
-      navigate('/receipt');
+      toast.success('Vehicle details added successfully');
+      navigate(`/receipt/${aadharNumber}`);
     } catch (error) {
       alert('Failed to add vehicle details');
     }
@@ -42,11 +30,24 @@ const VehicleInfoForm = () => {
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
           <label className="block text-sm font-medium text-gray-700">Vehicle Number:</label>
-          <input type="text" value={vehicleNumber} onChange={(e) => setVehicleNumber(e.target.value)} required className="w-full px-3 py-2 border border-gray-300 rounded-md" />
+          <input 
+            type="text" 
+            value={vehicleNumber} 
+            onChange={(e) => setVehicleNumber(e.target.value)} 
+            required 
+            pattern="[A-Za-z]{2}\s?[0-9]{1,2}\s?[A-Za-z]{0,3}\s?[0-9]{4}" 
+            placeholder='AAXXAAXXXX (A-Alphabet, X-Number)'
+            className="w-full px-3 py-2 border border-gray-300 rounded-md" 
+          />
         </div>
         <div>
           <label className="block text-sm font-medium text-gray-700">Vehicle Type:</label>
-          <select value={vehicleType} onChange={(e) => setVehicleType(e.target.value)} required className="w-full px-3 py-2 border border-gray-300 rounded-md">
+          <select 
+            value={vehicleType} 
+            onChange={(e) => setVehicleType(e.target.value)} 
+            required 
+            className="w-full px-3 py-2 border border-gray-300 rounded-md"
+          >
             <option value="">Select Vehicle Type</option>
             <option value="Car">Car</option>
             <option value="Motorcycle">Motorcycle</option>
@@ -55,7 +56,12 @@ const VehicleInfoForm = () => {
             <option value="Other">Other</option>
           </select>
         </div>
-        <button type="submit" className="w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-amber-500 hover:bg-gray-300 hover:text-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">Submit</button>
+        <button 
+          type="submit" 
+          className="w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-amber-500 hover:bg-gray-300 hover:text-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+        >
+          Submit
+        </button>
       </form>
     </div>
   );

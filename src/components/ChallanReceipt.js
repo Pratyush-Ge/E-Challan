@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; 
+import { useNavigate, useParams } from 'react-router-dom'; 
 import axios from 'axios';
+import { toast } from 'react-toastify';
+
 
 const ChallanReceipt = () => {
+    const { aadharNumber } = useParams();
     const [violations, setViolations] = useState('');
     const [selectedViolation, setSelectedViolation] = useState('');
     const navigate = useNavigate();
@@ -42,12 +45,13 @@ const ChallanReceipt = () => {
         const totalPenalty = calculateTotalPenalty();
     
         axios.post('http://localhost:5000/generateChallanReceipt', {
+            aadharNumber: aadharNumber,
             violationType: violations,
             penaltyAmount: totalPenalty 
         })
             .then(response => {
-                alert(response.data);
-                navigate('/violatorDetails');
+                navigate(`/violatorDetails/${aadharNumber}`);
+                toast.success("Receipt being generated")
             })
             .catch(error => {
                 console.error('Error generating receipt:', error);
@@ -71,7 +75,7 @@ const ChallanReceipt = () => {
                     <button type="button" onClick={addViolation} className="px-3 py-2 text-white bg-amber-500 hover:bg-gray-300 hover:text-black rounded-md">Add</button>
                 </div>
                 {violations.split(', ').map((violation, index) => (
-                    <div key={index} className="flex items-center mb-2">
+                    <div key={violation} className="flex items-center mb-2">
                         <input type="text" value={violation} disabled className="flex-1 px-3 py-2 mr-2 border rounded-md" />
                         <button type="button" onClick={() => removeViolation(violation)} className="px-3 py-2 text-white bg-red-600 hover:bg-red-700 rounded-md">Remove</button>
                     </div>
