@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import BASE_API from '../api';
+
 
 const ViolatorInfo = () => {
   const [aadharNumber, setAadharNumberInput] = useState('');
@@ -21,7 +23,7 @@ const ViolatorInfo = () => {
       return;
     }
     try {
-      await axios.post('http://localhost:5000/addViolator', {aadharNumber, name, address, phone});
+      await axios.post(`${BASE_API}/addViolator`, {aadharNumber, name, address, phone});
       toast.success('Violator details added successfully');
       navigate(`/vehicle/${aadharNumber}`);
     } catch (error) {

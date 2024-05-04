@@ -2,6 +2,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { useReactToPrint } from 'react-to-print';
+import BASE_API from '../api';
+
 
 const ViolatorDetails = () => {
   const { aadharNumber } = useParams();
@@ -13,7 +15,7 @@ const ViolatorDetails = () => {
   useEffect(() => {
     const fetchViolatorDetails = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/getViolatorDetails/${aadharNumber}`);
+        const response = await axios.get(`${BASE_API}/getViolatorDetails/${aadharNumber}`);
         setViolatorDetails(response.data);
       } catch (error) {
         console.error('Error fetching violator details:', error);
@@ -22,7 +24,7 @@ const ViolatorDetails = () => {
 
     const fetchVehicleDetails = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/fetchVehicleDetails/${aadharNumber}`);
+        const response = await axios.get(`${BASE_API}/fetchVehicleDetails/${aadharNumber}`);
         setVehicleDetails(response.data);
       } catch (error) {
         console.error('Error fetching vehicle details:', error);
@@ -31,7 +33,7 @@ const ViolatorDetails = () => {
 
     const fetchChallanDetails = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/fetchChallan/${aadharNumber}`);
+        const response = await axios.get(`${BASE_API}/fetchChallan/${aadharNumber}`);
         setChallanDetails(response.data);
       } catch (error) {
         console.error('Error fetching challan details:', error);

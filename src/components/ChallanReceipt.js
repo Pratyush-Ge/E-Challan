@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom'; 
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import BASE_API from '../api';
 
 
 const ChallanReceipt = () => {
@@ -44,7 +45,7 @@ const ChallanReceipt = () => {
     const generateReceipt = () => {
         const totalPenalty = calculateTotalPenalty();
     
-        axios.post('http://localhost:5000/generateChallanReceipt', {
+        axios.post(`${BASE_API}/generateChallanReceipt`, {
             aadharNumber: aadharNumber,
             violationType: violations,
             penaltyAmount: totalPenalty 

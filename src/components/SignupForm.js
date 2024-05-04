@@ -3,6 +3,8 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import Img from '../assets/bg.jpg';
+import BASE_API from '../api';
+
 
 const SignupPage = () => {
   const [name, setName] = useState('');
@@ -31,7 +33,7 @@ const SignupPage = () => {
     }
 
     try {
-      await axios.post('http://localhost:5000/signup', { name, email, password, areaOfOperation });
+      await axios.post(`${BASE_API}/signup`, { name, email, password, areaOfOperation });
       toast.success("Signed up successfully")
       navigate('/login');
     } catch (error) {
@@ -44,6 +46,9 @@ const SignupPage = () => {
 
       <div className="relative hidden h-screen select-none flex-col justify-center text-center md:flex md:w-1/2">
         <img src={Img} alt="background" className="object-cover w-full h-full" />
+        <div className="m-auto text-white text-4xl font-bold absolute z-10">
+          Welcome to the E-challan Management System
+        </div>
         <div className="absolute inset-0 bg-black opacity-40"></div>
       </div>
 

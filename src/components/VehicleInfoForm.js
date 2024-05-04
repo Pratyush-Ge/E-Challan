@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import BASE_API from '../api';
+
 
 const VehicleInfoForm = () => {
   const { aadharNumber } = useParams(); 
@@ -12,7 +14,7 @@ const VehicleInfoForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:5000/addVehicle', {
+      await axios.post(`${BASE_API}/addVehicle`, {
         aadharNumber,
         vehicleNumber,
         vehicleType,
