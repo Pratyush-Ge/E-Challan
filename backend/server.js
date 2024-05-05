@@ -2,11 +2,12 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const mongoose = require('mongoose');
+const dotenv = require('dotenv');
 const personnelController = require('./controllers/personnelController');
 const violatorController = require('./controllers/violatorController');
 const challanController = require('./controllers/challanController');
 const vehicleController = require('./controllers/vehicleController');
-const dotenv = require('dotenv');
+const smsController = require('./controllers/smsController');
 
 dotenv.config();
 
@@ -15,7 +16,6 @@ const port = process.env.PORT || 5000;
 
 app.use(bodyParser.json());
 app.use(cors());
-
 
 const mongoUrl = process.env.MONGO_URL;
 mongoose.connect(mongoUrl);
@@ -37,7 +37,7 @@ app.post('/generateChallanReceipt', challanController.generateChallanReceipt);
 app.get('/fetchChallan/:aadharNumber', challanController.fetchChallan);
 app.post('/addVehicle', vehicleController.addVehicle);
 app.get('/fetchVehicleDetails/:aadharNumber', vehicleController.fetchVehicleDetails);
-
+app.post('/send-sms', smsController.sendSMS);
 
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);

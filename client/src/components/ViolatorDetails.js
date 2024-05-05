@@ -1,17 +1,42 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useReactToPrint } from 'react-to-print';
+import { toast } from 'react-toastify';
 import BASE_API from '../api';
 
 
 const ViolatorDetails = () => {
+  const navigate = useNavigate();
   const { aadharNumber } = useParams();
   const componentRef = useRef();
   const [violatorDetails, setViolatorDetails] = useState(null);
   const [vehicleDetails, setVehicleDetails] = useState(null);
   const [challanDetails, setChallanDetails] = useState(null);
   const [personnelDetails, setPersonnelDetails] = useState(null);
+
+  const handleSMS = async () => {
+    try {
+      if (!violatorDetails || !violatorDetails.phone) {
+        throw new Error('No valid phone number found');
+      }
+  
+      const phoneNumber = `+91${violatorDetails.phone}`;
+  
+      const body = `\n\nFine Report\n\nYou have committed a traffic violation on ${formatDate(challanDetails[0].violationDate)} in the ${personnelDetails.areaOfOperation} area. You have been charged by traffic officer ${personnelDetails.name} with a penalty amount of ${challanDetails.reduce((total, challan) => total + challan.penaltyAmount, 0)}. This message hereby confirms that you have paid the fine on the spot. Click here for details: ${BASE_API}/violatorDetails/${violatorDetails.aadharNumber}\n\nThis message is from E-challan.`;
+  
+      await axios.post(`${BASE_API}/send-sms`, {
+        to: phoneNumber,
+        body: body,
+      });
+      toast.success('SMS sent successfully');
+    } catch (error) {
+      console.error('Error sending SMS:', error.message);
+      toast.error('Failed to send SMS');
+    }
+  };
+  
 
 
   useEffect(() => {
@@ -56,6 +81,16 @@ const ViolatorDetails = () => {
     fetchViolatorDetails();
     fetchVehicleDetails();
     fetchChallanDetails();
+
+    const handlePopstate = (e) => {
+      const confirmationMessage = 'Are you sure you want to go back? Your changes may not be saved.';
+      if (window.confirm(confirmationMessage)) {
+        navigate('/login');
+      }
+    };
+
+    window.addEventListener('popstate', handlePopstate);
+
   }, [aadharNumber]);
 
   const handlePrint = useReactToPrint({
@@ -72,14 +107,20 @@ const ViolatorDetails = () => {
   };
 
   return (
-    <div className="p-8 border border-gray-200 rounded shadow-md bg-gray-100 relative mt-12 w-1/3">
+    <div className="p-5 border border-gray-200 rounded shadow-md bg-gray-100 relative mt-12 w-400">
+      <button
+        onClick={handleSMS}
+        className="text-white bg-blue-500 hover:bg-gray-300 hover:text-black px-2 py-1 rounded absolute top-2 left-2 text-sm"
+      >
+        Send SMS
+      </button>
       <button
         onClick={handlePrint}
         className="text-white bg-amber-500 hover:bg-gray-300 hover:text-black px-2 py-1 rounded absolute top-2 right-2 text-sm"
       >
         Print
       </button>
-      <h2 className="text-xl font-bold text-center mb-4">Violator Details</h2>
+      <h2 className="text-xl font-bold text-center mb-4 mt-5">Violator Details</h2>
       <div ref={componentRef}>
         <div className="mb-4">
           <h3 className="text-lg font-semibold mb-2 underline">Officer Details:</h3>

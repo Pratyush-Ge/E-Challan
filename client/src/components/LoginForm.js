@@ -26,6 +26,7 @@ const LoginForm = () => {
       }
     } catch (error) {
       if (error.response && error.response.status === 401) {
+        toast.error("Wrong credentials")
       } else {
         console.error('Login failed:', error);
       }
@@ -34,7 +35,6 @@ const LoginForm = () => {
 
   return (
     <div className="flex w-screen flex-wrap text-slate-800">
-
 
       <div className="relative hidden h-screen select-none flex-col justify-center text-center md:flex md:w-1/2">
         <img src={Img} alt="background" className="object-cover w-full h-full" />
