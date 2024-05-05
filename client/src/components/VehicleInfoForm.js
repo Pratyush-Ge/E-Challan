@@ -27,8 +27,8 @@ const VehicleInfoForm = () => {
   };
 
   return (
-    <div className="w-2/3 max-w-md mx-auto my-8 p-8 bg-white rounded-lg shadow-md">
-      <h2 className="text-2xl font-bold mb-4">Vehicle Information Form</h2>
+    <div className="lg:w-3/5 max-w-md mx-2 my-8 p-8 bg-white rounded-lg shadow-md">
+      <h2 className="lg:text-2xl font-bold mb-4 text-center">Add Vehicle Details</h2>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
           <label className="block text-sm font-medium text-gray-700">Vehicle Number:</label>

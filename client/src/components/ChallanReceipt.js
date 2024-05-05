@@ -62,11 +62,11 @@ const ChallanReceipt = () => {
     
     
     return (
-        <div className="w-2/3 max-w-md mx-auto my-8 p-8 bg-white rounded-lg shadow-md">
-            <h2 className="text-2xl font-bold mb-4">Challan Receipt</h2>
+<div className="lg:w-2/3 sm:w-4/5 max-w-md mx-2 my-8 p-5 bg-white rounded-lg shadow-md">
+            <h2 className="lg:text-2xl font-bold mb-4 text-center">Challan Receipt</h2>
             <form>
-                <label className="block mb-2">Select Violation:</label>
-                <div className="flex items-center mb-4">
+                <label className="block mb-2 text-center">Select Violation</label>
+                <div className="flex items-center mb-2">
                     <select value={selectedViolation} onChange={handleViolationChange} className="flex-1 px-3 py-2 mr-2 border rounded-md">
                         <option value="">Select violation</option>
                         {violationOptions.map((violation, index) => (
@@ -81,7 +81,7 @@ const ChallanReceipt = () => {
                         <button type="button" onClick={() => removeViolation(violation)} className="px-3 py-2 text-white bg-red-600 hover:bg-red-700 rounded-md">Remove</button>
                     </div>
                 ))}
-                <label className="block mb-2 mt-4">Total Penalty Amount:</label>
+                <label className="block mb-2 mt-4 text-center">Total Penalty Amount</label>
                 <input type="text" value={calculateTotalPenalty()} disabled className="w-full px-3 py-2 mb-4 border rounded-md" />
                 <button type="button" onClick={generateReceipt} className="w-full px-3 py-2 mt-4 text-white bg-amber-500 hover:bg-gray-300 hover:text-black rounded-md">Generate Receipt</button>
             </form>

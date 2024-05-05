@@ -15,7 +15,7 @@ const Dashboard = ({personnelId }) => {
   };
 
   return (
-    <div className="max-w-md mx-auto my-8 p-8 bg-white rounded-lg shadow-md w-400">
+<div className="max-w-md mx-2 my-8 p-8 bg-white rounded-lg shadow-md">
       <h2 className="text-center text-2xl font-bold mb-4">Welcome !</h2>
       <h2 className="text-center font-bold mb-4">(Personnel email : {nameOfPersonnel})</h2>
       <div className="flex justify-between">

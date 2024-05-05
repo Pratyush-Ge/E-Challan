@@ -107,7 +107,7 @@ const ViolatorDetails = () => {
   };
 
   return (
-    <div className="p-5 border border-gray-200 rounded shadow-md bg-gray-100 relative mt-12 w-400">
+    <div className="p-5 border border-gray-200 rounded shadow-md bg-gray-100 relative mt-11 lg:w-2/5 sm:w-full">
       <button
         onClick={handleSMS}
         className="text-white bg-blue-500 hover:bg-gray-300 hover:text-black px-2 py-1 rounded absolute top-2 left-2 text-sm"

@@ -32,8 +32,8 @@ const ViolatorInfo = () => {
   };
 
   return (
-    <div className="w-2/3 max-w-md mx-auto p-8 bg-white rounded-lg shadow-md mt-8">
-      <h2 className="text-2xl font-bold mb-4">Add Violator Details</h2>
+    <div className="lg:w-1/3 max-w-md p-8 bg-white rounded-lg shadow-md mt-11 mx-2">
+      <h2 className="lg:text-2xl font-bold mb-4 text-center">Add Violator Details</h2>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
           <label className="block text-sm font-medium text-gray-700">Aadhar Number:</label>
