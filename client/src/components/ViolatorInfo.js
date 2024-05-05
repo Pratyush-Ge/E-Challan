@@ -32,7 +32,7 @@ const ViolatorInfo = () => {
   };
 
   return (
-    <div className="w-full max-w-md mx-auto p-8 bg-white rounded-lg shadow-md mt-8">
+    <div className="w-2/3 max-w-md mx-auto p-8 bg-white rounded-lg shadow-md mt-8">
       <h2 className="text-2xl font-bold mb-4">Add Violator Details</h2>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
