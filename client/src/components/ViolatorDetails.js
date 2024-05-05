@@ -63,7 +63,7 @@ const ViolatorDetails = () => {
   });
 
   if (!violatorDetails || !vehicleDetails || !challanDetails ||!personnelDetails) {
-    return <div>Loading...</div>;
+    return <div className='text-2xl text-white'>Generating Receipt...</div>;
   }
 
   const formatDate = (dateString) => {

@@ -52,7 +52,7 @@ const ChallanReceipt = () => {
         })
             .then(response => {
                 navigate(`/violatorDetails/${aadharNumber}`);
-                toast.success("Receipt being generated")
+                toast.success("Submitted successfully")
             })
             .catch(error => {
                 console.error('Error generating receipt:', error);
