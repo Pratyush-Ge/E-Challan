@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import Img from '../assets/bg.jpg';
 import BASE_API from '../api';
-
 
 const SignupPage = () => {
   const [name, setName] = useState('');
@@ -78,6 +77,7 @@ const SignupPage = () => {
                 <input type="password" id="login-password" value={password} onChange={(e) => setPassword(e.target.value)} className="w-full flex-shrink appearance-none border-gray-300 bg-white py-2 px-4 text-base text-gray-700 placeholder-gray-400 focus:outline-none" placeholder="Password (minimum 8 characters)" />
               </div>
             </div>
+            <p className="text-gray-600 mt-2">Already signed up? <Link to="/login" className="text-blue-600">Login</Link></p>
             <button type="submit" className="mt-6 rounded-lg bg-amber-500 px-4 py-2 text-center text-base font-semibold text-white shadow-md outline-none ring-blue-500 ring-offset-2 transition hover:bg-blue-700 focus:ring-2 md:w-32">Sign in</button>
           </form>
         </div>
