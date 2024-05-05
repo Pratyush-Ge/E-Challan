@@ -30,6 +30,7 @@ db.once('open', () => {
 // Routes
 app.post('/signup', personnelController.signup);
 app.post('/login', personnelController.login);
+app.get('/fetchPersonnelDetails/:email', personnelController.fetchPersonnelDetails);
 app.post('/addViolator', violatorController.addViolator);
 app.get('/getViolatorDetails/:aadharNumber', violatorController.getViolatorDetails);
 app.post('/generateChallanReceipt', challanController.generateChallanReceipt);

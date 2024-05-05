@@ -41,7 +41,7 @@ const SignupPage = () => {
   };
 
   return (
-    <div className="flex w-screen flex-wrap text-slate-800 justify-end">
+    <div className="flex w-screen flex-wrap text-slate-800">
 
       <div className="relative hidden h-screen select-none flex-col justify-center text-center md:flex md:w-1/2">
         <img src={Img} alt="background" className="object-cover w-full h-full" />
@@ -68,7 +68,7 @@ const SignupPage = () => {
             </div>
             <div className="flex flex-col pt-4">
               <div className="relative flex overflow-hidden rounded-md border-2 transition focus-within:border-blue-600">
-                <input type="text" id="login-password" value={areaOfOperation} onChange={(e) => setAreaOfOperation(e.target.value)} className="w-full flex-shrink appearance-none border-gray-300 bg-white py-2 px-4 text-base text-gray-700 placeholder-gray-400 focus:outline-none" placeholder="Area of operation" />
+                <input type="text" id="area-of-operation" value={areaOfOperation} onChange={(e) => setAreaOfOperation(e.target.value)} className="w-full flex-shrink appearance-none border-gray-300 bg-white py-2 px-4 text-base text-gray-700 placeholder-gray-400 focus:outline-none" placeholder="Area of operation" />
               </div>
               {passwordError && <p className="text-red-500">{passwordError}</p>}
             </div>

@@ -11,8 +11,20 @@ const ViolatorDetails = () => {
   const [violatorDetails, setViolatorDetails] = useState(null);
   const [vehicleDetails, setVehicleDetails] = useState(null);
   const [challanDetails, setChallanDetails] = useState(null);
+  const [personnelDetails, setPersonnelDetails] = useState(null);
+
 
   useEffect(() => {
+    const fetchPersonnelDetails = async () => {
+      try {
+        const email = localStorage.getItem('email');
+        const response = await axios.get(`${BASE_API}/fetchPersonnelDetails/${email}`);
+        setPersonnelDetails(response.data);
+      } catch (error) {
+        console.error('Error fetching personnel details:', error);
+      }
+    };
+
     const fetchViolatorDetails = async () => {
       try {
         const response = await axios.get(`${BASE_API}/getViolatorDetails/${aadharNumber}`);
@@ -40,6 +52,7 @@ const ViolatorDetails = () => {
       }
     };
 
+    fetchPersonnelDetails();
     fetchViolatorDetails();
     fetchVehicleDetails();
     fetchChallanDetails();
@@ -49,7 +62,7 @@ const ViolatorDetails = () => {
     content: () => componentRef.current,
   });
 
-  if (!violatorDetails || !vehicleDetails || !challanDetails) {
+  if (!violatorDetails || !vehicleDetails || !challanDetails ||!personnelDetails) {
     return <div>Loading...</div>;
   }
 
@@ -59,7 +72,7 @@ const ViolatorDetails = () => {
   };
 
   return (
-    <div className="p-4 border border-gray-200 rounded shadow-md bg-gray-100 relative mt-9 w-1/3">
+    <div className="p-8 border border-gray-200 rounded shadow-md bg-gray-100 relative mt-12 w-1/3">
       <button
         onClick={handlePrint}
         className="text-white bg-amber-500 hover:bg-gray-300 hover:text-black px-2 py-1 rounded absolute top-2 right-2 text-sm"
@@ -69,7 +82,12 @@ const ViolatorDetails = () => {
       <h2 className="text-xl font-bold text-center mb-4">Violator Details</h2>
       <div ref={componentRef}>
         <div className="mb-4">
-          <h3 className="text-lg font-semibold mb-2 underline">Personal Details:</h3>
+          <h3 className="text-lg font-semibold mb-2 underline">Officer Details:</h3>
+          <p>Name: {personnelDetails.name}</p>
+          <p>Area of operation: {personnelDetails.areaOfOperation}</p>
+        </div>
+        <div className="mb-4">
+          <h3 className="text-lg font-semibold mb-2 underline">Violator Details:</h3>
           <p>Aadhar Number: {violatorDetails.aadharNumber}</p>
           <p>Name: {violatorDetails.name}</p>
           <p>Address: {violatorDetails.address}</p>
@@ -91,7 +109,6 @@ const ViolatorDetails = () => {
           <ul>
             {challanDetails.map(challan => (
               <li key={challan.aadharNumber}>
-                <p>Challan ID: {challan.aadharNumber}</p>
                 <p>Violation Date: {formatDate(challan.violationDate)}</p>
                 <p>Violation Type: {challan.violationType}</p>
                 <p className="font-bold bg-yellow-200 px-2 pb-1 my-1 rounded-md">

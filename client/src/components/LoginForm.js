@@ -22,6 +22,7 @@ const LoginForm = () => {
       if (response.status === 200) {
         toast.success("Logged in successfully")
         navigate('/dashboard');
+        localStorage.setItem("email", email);
       }
     } catch (error) {
       if (error.response && error.response.status === 401) {
@@ -43,7 +44,7 @@ const LoginForm = () => {
         <div className="absolute inset-0 bg-black opacity-40"></div>
       </div>
 
-      <div className="flex w-full flex-col md:w-1/2 bg-blue-100">
+      <div className="flex w-full flex-col md:w-1/2 bg-blue-100 h-screen">
         <div className="my-auto mx-auto flex flex-col justify-center px-6 pt-8 md:justify-start lg:w-[28rem]">
           <p className="text-center text-3xl font-bold md:text-left md:leading-tight text-black">Personnel Login</p>
           <form className="flex flex-col items-stretch pt-3 md:pt-8" onSubmit={handleLogin}>
