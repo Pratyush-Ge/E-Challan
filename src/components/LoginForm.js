@@ -11,13 +11,11 @@ const LoginForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [emailError, setEmailError] = useState('');
-  const [passwordError, setPasswordError] = useState('');
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
     setEmailError('');
-    setPasswordError('');
 
     try {
       const response = await axios.post(`${BASE_API}/login`, { email, password });
@@ -27,7 +25,6 @@ const LoginForm = () => {
       }
     } catch (error) {
       if (error.response && error.response.status === 401) {
-        setPasswordError('Invalid email or password');
       } else {
         console.error('Login failed:', error);
       }
