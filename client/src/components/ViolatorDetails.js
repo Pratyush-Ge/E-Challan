@@ -24,7 +24,7 @@ const ViolatorDetails = () => {
   
       const phoneNumber = `+91${violatorDetails.phone}`;
   
-      const body = `\n\nFine Report\n\nYou have committed a traffic violation on ${formatDate(challanDetails[0].violationDate)} in the ${personnelDetails.areaOfOperation} area. You have been charged by traffic officer ${personnelDetails.name} with a penalty amount of ${challanDetails.reduce((total, challan) => total + challan.penaltyAmount, 0)}. This message hereby confirms that you have paid the fine on the spot. Click here for details: ${BASE_API}/violatorDetails/${violatorDetails.aadharNumber}\n\nThis message is from E-challan.`;
+      const body = `\n\nFine Report\n\nYou have committed a traffic violation on ${formatDate(challanDetails[0].violationDate)} in the ${personnelDetails.areaOfOperation} area. You have been charged by traffic officer ${personnelDetails.name} with a penalty amount of ${challanDetails.reduce((total, challan) => total + challan.penaltyAmount, 0)}. This message hereby confirms that you have paid the fine on the spot. Click here for details: https://e-challan-tpms.vercel.app/violatorDetails/${violatorDetails.aadharNumber}\n\nThis message is from E-challan.`;
   
       await axios.post(`${BASE_API}/send-sms`, {
         to: phoneNumber,
