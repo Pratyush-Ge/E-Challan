@@ -43,7 +43,21 @@ const ViolatorDetails = () => {
 
   const sendEmail = async (e) => {
     e.preventDefault();
-
+  
+    const formatDate = (dateString) => {
+      const date = new Date(dateString);
+      return `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`;
+    };
+  
+  
+    const vehicleTableRows = vehicleDetails ? vehicleDetails.map(vehicle => (
+      `<tr key=${vehicle.vehicleNumber}><td>${vehicle.vehicleNumber}</td><td>${vehicle.vehicleType}</td></tr>`
+    )) : '';
+  
+    const challanTableRows = challanDetails ? challanDetails.map(challan => (
+      `<tr key=${challan.aadharNumber}><td>${formatDate(challan.violationDate)}</td><td>${challan.violationType}</td><td>${challan.penaltyAmount}</td></tr>`
+    )) : '';
+  
     const bodyHtml = `
     <!DOCTYPE html>
     <html>
@@ -74,20 +88,91 @@ const ViolatorDetails = () => {
           color: #007bff;
           text-decoration: none;
         }
+        table {
+          border-collapse: collapse;
+          width: 100%;
+        }
+        th, td {
+          border: 1px solid #ddd;
+          padding: 8px;
+          text-align: left;
+        }
+        th {
+          background-color: #f2f2f2;
+        }
+        .header {
+          background-color: #f2f2f2;
+          font-weight: bold;
+        }
       </style>
     </head>
     <body>
       <div class="container">
-        <h1>Fine Report</h1>
-        <p>
-          You have committed a traffic violation on ${formatDate(challanDetails[0].violationDate)} in the ${personnelDetails.areaOfOperation} area. You have been charged by traffic officer ${personnelDetails.name} with a penalty amount of ${challanDetails.reduce((total, challan) => total + challan.penaltyAmount, 0)}. This message hereby confirms that you have paid the fine on the spot. Click <a href="https://e-challan-tpms.vercel.app/violatorDetails/${violatorDetails.aadharNumber}">here</a> for details.
-        </p>
+        <h2>Officer Details:</h2>
+        <table>
+          <tbody>
+            <tr>
+              <td class="header">Officer Name</td>
+              <td>${personnelDetails.name}</td>
+            </tr>
+            <tr>
+              <td class="header">Area of Operation</td>
+              <td>${personnelDetails.areaOfOperation}</td>
+            </tr>
+          </tbody>
+        </table>
+        <h2>Violator Details:</h2>
+        <table>
+          <tbody>
+            <tr>
+              <td class="header">Aadhar Number</td>
+              <td>${violatorDetails.aadharNumber}</td>
+            </tr>
+            <tr>
+              <td class="header">Name</td>
+              <td>${violatorDetails.name}</td>
+            </tr>
+            <tr>
+              <td class="header">Address</td>
+              <td>${violatorDetails.address}</td>
+            </tr>
+            <tr>
+              <td class="header">Phone</td>
+              <td>${violatorDetails.phone}</td>
+            </tr>
+          </tbody>
+        </table>
+        <h2>Vehicle Details:</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Vehicle Number</th>
+              <th>Vehicle Type</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${vehicleTableRows}
+          </tbody>
+        </table>
+        <h2>Challan Details:</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Violation Date</th>
+              <th>Violation Type</th>
+              <th>Penalty Amount</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${challanTableRows}
+          </tbody>
+        </table>
         <p>This message is from E-challan.</p>
       </div>
     </body>
     </html>
     `;
-
+  
     const res = await fetch(`${BASE_API}/sendEmail`, {
       method: "POST",
       headers: {
@@ -98,10 +183,10 @@ const ViolatorDetails = () => {
         bodyHtml: bodyHtml
       })
     });
-
+  
     const data = await res.json();
     console.log(data);
-
+  
     if (data.status === 401 || !data) {
       console.log("error")
     } else {
@@ -110,6 +195,8 @@ const ViolatorDetails = () => {
       console.log("Email sent")
     }
   }
+  
+  
 
 
 
