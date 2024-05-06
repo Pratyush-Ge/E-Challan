@@ -5,7 +5,8 @@ const violatorSchema = new mongoose.Schema({
   aadharNumber: String,
   name: String,
   address: String,
-  phone: String
+  phone: String,
+  email: String
 });
 
 const Violator = mongoose.model('Violator', violatorSchema);

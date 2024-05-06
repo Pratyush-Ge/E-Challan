@@ -10,6 +10,7 @@ const ViolatorInfo = () => {
   const [name, setName] = useState('');
   const [address, setAddress] = useState('');
   const [phone, setPhone] = useState('');
+  const [email, setEmail] = useState('');
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -23,7 +24,7 @@ const ViolatorInfo = () => {
       return;
     }
     try {
-      await axios.post(`${BASE_API}/addViolator`, {aadharNumber, name, address, phone});
+      await axios.post(`${BASE_API}/addViolator`, { aadharNumber, name, address, phone, email });
       toast.success('Violator details added successfully');
       navigate(`/vehicle/${aadharNumber}`);
     } catch (error) {
@@ -39,6 +40,11 @@ const ViolatorInfo = () => {
           <label className="block text-sm font-medium text-gray-700">Aadhar Number:</label>
           <input type="text" value={aadharNumber} onChange={(e) => setAadharNumberInput(e.target.value)} required className="w-full px-3 py-2 border border-gray-300 rounded-md" />
         </div>
+        <div>
+          <label className="block text-sm font-medium text-gray-700">Email:</label>
+          <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required className="w-full px-3 py-2 border border-gray-300 rounded-md" />
+        </div>
+
         <div>
           <label className="block text-sm font-medium text-gray-700">Name:</label>
           <input type="text" value={name} onChange={(e) => setName(e.target.value)} required className="w-full px-3 py-2 border border-gray-300 rounded-md" />

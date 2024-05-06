@@ -2,8 +2,8 @@ const Violator = require('../models/violatorModel');
 
 const addViolator = async (req, res) => {
   try {
-    const { aadharNumber, name, address, phone } = req.body;
-    const newViolator = new Violator({ aadharNumber, name, address, phone });
+    const { aadharNumber, name, address, phone, email } = req.body;
+    const newViolator = new Violator({ aadharNumber, name, address, phone, email });
     await newViolator.save();
     res.status(201).json(newViolator);
   } catch (error) {
@@ -24,6 +24,5 @@ const getViolatorDetails = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
-
 
 module.exports = { addViolator, getViolatorDetails };
