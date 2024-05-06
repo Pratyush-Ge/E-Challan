@@ -7,7 +7,7 @@ const personnelController = require('./controllers/personnelController');
 const violatorController = require('./controllers/violatorController');
 const challanController = require('./controllers/challanController');
 const vehicleController = require('./controllers/vehicleController');
-const smsController = require('./controllers/smsController');
+// const smsController = require('./controllers/smsController');
 const emailController = require('./controllers/emailController');
 
 dotenv.config();
@@ -38,7 +38,7 @@ app.post('/generateChallanReceipt', challanController.generateChallanReceipt);
 app.get('/fetchChallan/:aadharNumber', challanController.fetchChallan);
 app.post('/addVehicle', vehicleController.addVehicle);
 app.get('/fetchVehicleDetails/:aadharNumber', vehicleController.fetchVehicleDetails);
-app.post('/send-sms', smsController.sendSMS);
+// app.post('/send-sms', smsController.sendSMS);
 app.post('/sendEmail', emailController.sendEmail);
 
 app.listen(port, () => {

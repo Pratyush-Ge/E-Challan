@@ -18,27 +18,27 @@ const ViolatorDetails = () => {
   const [personnelDetails, setPersonnelDetails] = useState(null);
   const [toemail, setEmail] = useState("");
 
-  const handleSMS = async () => {
-    try {
-      if (!violatorDetails || !violatorDetails.phone) {
-        throw new Error('No valid phone number found');
-      }
+  // const handleSMS = async () => {
+  //   try {
+  //     if (!violatorDetails || !violatorDetails.phone) {
+  //       throw new Error('No valid phone number found');
+  //     }
 
-      const phoneNumber = `+91${violatorDetails.phone}`;
+  //     const phoneNumber = `+91${violatorDetails.phone}`;
 
-      const body = `\n\nFine Report\n\nYou have committed a traffic violation on ${formatDate(challanDetails[0].violationDate)} in the ${personnelDetails.areaOfOperation} area. You have been charged by traffic officer ${personnelDetails.name} with a penalty amount of ${challanDetails.reduce((total, challan) => total + challan.penaltyAmount, 0)}. This message hereby confirms that you have paid the fine on the spot. Click here for details: https://e-challan-tpms.vercel.app/violatorDetails/${violatorDetails.aadharNumber}\n\nThis message is from E-challan.`;
+  //     const body = `\n\nFine Report\n\nYou have committed a traffic violation on ${formatDate(challanDetails[0].violationDate)} in the ${personnelDetails.areaOfOperation} area. You have been charged by traffic officer ${personnelDetails.name} with a penalty amount of ${challanDetails.reduce((total, challan) => total + challan.penaltyAmount, 0)}. This message hereby confirms that you have paid the fine on the spot. Click here for details: https://e-challan-tpms.vercel.app/violatorDetails/${violatorDetails.aadharNumber}\n\nThis message is from E-challan.`;
 
-      await axios.post(`${BASE_API}/send-sms`, {
-        to: phoneNumber,
-        body: body,
-      });
+  //     await axios.post(`${BASE_API}/send-sms`, {
+  //       to: phoneNumber,
+  //       body: body,
+  //     });
 
-      toast.success('SMS sent successfully');
-    } catch (error) {
-      console.error('Error sending SMS:', error.message);
-      toast.error('Failed to send SMS');
-    }
-  };
+  //     toast.success('SMS sent successfully');
+  //   } catch (error) {
+  //     console.error('Error sending SMS:', error.message);
+  //     toast.error('Failed to send SMS');
+  //   }
+  // };
 
 
   const sendEmail = async (e) => {
@@ -183,15 +183,15 @@ const ViolatorDetails = () => {
   return (
     <div className="p-5 border border-gray-200 rounded shadow-md bg-gray-100 relative mt-11 lg:w-2/5 sm:w-full">
       <div className='flex items-center justify-evenly'>
-        <button
+        {/* <button
           onClick={handleSMS}
           className="text-white bg-blue-500 hover:bg-gray-300 hover:text-black px-2 py-1 rounded absolute left-2 text-sm"
         >
           Send SMS
-        </button>
+        </button> */}
         <button
           onClick={sendEmail}
-          className="text-white bg-blue-500 hover:bg-gray-300 hover:text-black px-2 py-1 rounded absolute text-sm"
+          className="text-white bg-blue-500 hover:bg-gray-300 hover:text-black px-2 py-1 rounded absolute left-2 text-sm"
         >
           Send email
         </button>
