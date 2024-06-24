@@ -9,7 +9,6 @@ const Dashboard = ({personnelId }) => {
     navigate('/login');
     localStorage.removeItem("email");
   };
-//salik
   const handleNavigateToViolatorDetails = () => {
     navigate('/violator'); 
   };
